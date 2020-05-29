@@ -1,0 +1,16 @@
+mat-toolbar-row {
+  justify-content: space-between;
+}
+.navbar-title {
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}
+.navbar-menu {
+  display: flex;
+  justify-content: space-between;
+  div {
+    margin-left: 5px;
+  }
+}
