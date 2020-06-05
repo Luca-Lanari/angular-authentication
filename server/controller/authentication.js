@@ -2,10 +2,28 @@ let passport = require('passport');
 let mongoose = require('mongoose');
 let User = mongoose.model('User');
 
+module.exports.register = (req, res) => {
+  //Insert try/catch
+  let user = new User();
+
+  user.name = req.body.name;
+  user.email = req.body.email;
+
+  user.setPassword(req.body.password);
+
+  user.save((err) => {
+    let token;
+    token = user.generateJwt();
+    res.status(200);
+    res.json({
+      "token": token
+    });
+  });
+};
 
 module.exports.login = (req, res) => {
 
-  passport.authenticate('local', null, (err, user, info) => {
+  passport.authenticate('local', (err, user, info) => {
     let token;
 
     // If Passport throws/catches an error
@@ -15,11 +33,11 @@ module.exports.login = (req, res) => {
     }
 
     // If a user is found
-    if(user) {
+    if (user) {
       token = user.generateJwt();
       res.status(200);
       res.json({
-        'token' : token
+        "token": token
       });
     } else {
       // If user is not found
