@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema ({
     type: String,
     required: true
   },
+  surname: {
+    type: String,
+    required: true
+  },
   hash: String,
   salt: String
 });
@@ -37,3 +41,7 @@ userSchema.methods.generateJwt = () => {
     exp: parseInt(expiry.getTime() / 1000),
   }, "MY_SECRET");
 };
+
+const User = mongoose.model('User', userSchema);
+module.exports =  User;
+

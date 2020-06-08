@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 const app = express();
-const mongoose = require('mongoose');
 
 const dotenv = require('dotenv');
 dotenv.config();
@@ -17,6 +16,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use(api, auth);
+
+app.use((err, req, res) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({'message': `${err.name}: ${err.message}`});
+  }
+});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));

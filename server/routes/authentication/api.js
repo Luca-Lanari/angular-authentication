@@ -1,66 +1,61 @@
 const express = require('express');
 const router = express.Router();
-const mongo = require('../../mongoUtils');
-const passport = require('passport');
+// const mongoose = require('mongoose');
+// const mongooseUtils = require('../../mongoUtils');
+// const passport = require('passport');
+
+const AuthController = require('../../controller/authentication');
+const CtrlProfile = require('../../controller/profile');
+const auth = require('../../config/jwt');
 // const expressSession = require('express-session');
 // const jwt = require('../../jwt');
 // const middlewareAuth = require('server/config/passport');
-// const authController = require('/server/controller/authentication').register;
 
 // Error handling
-const sendError = (err, res) => {
-  response.status = 501;
-  response.message = typeof err === 'object' ? err.message : err;
-  res.status(501).json(response);
-};
+// const sendError = (err, res) => {
+//   response.status = 501;
+//   response.message = typeof err === 'object' ? err.message : err;
+//   res.status(501).json(response);
+// };
+//
+// let response = {
+//   status: 200,
+//   data: [],
+//   message: null
+// };
 
-let response = {
-  status: 200,
-  data: [],
-  message: null
-};
-
-router.post('/registration', (req, res) => {
+router.post('/register', (req, res) => {
   try {
-    mongo.connection(db => {
-      console.log('REQ.BODY: ', req.body);
-
-      // authController.register(req, res);
-      let user = {
-        name: req.body.name,
-        email: req.body.email,
-        // password: btoa(req.body.password)
-        password: req.body.password
-      };
-
-      db.collection('users').findOne({email: req.body.email})
-        .then(result => {
-          if (!result) {
-            db.collection('users')
-              .insertOne(user);
-            response.data = user;
-            return res.json(response);
-          } else {
-            response.data = null;
-            response.message = 'email already exists';
-          }
-          return res.json(response);
-        });
-    });
+    console.log(req.body);
+    AuthController.register(req, res);
   } catch (err) {
-    sendError(err, res);
+    console.log(err);
+    return res.json({
+      status: err.status,
+      error: err.error,
+      message: err.message
+    });
   }
 });
 
 router.post('/login', (req, res) => {
   try {
-    mongo.connection(db => {
-
-    });
   } catch (err) {
-    sendError(err, res);
+    return res.json({
+      error: err
+    });
   }
+});
 
+router.get('/profile', auth, (req, res) => {
+  try {
+    console.log('req profile: ', req.body);
+    CtrlProfile.profileRead(req, res);
+  } catch (err) {
+    res.status(401).json({
+      error: err
+    })
+  }
 });
 
 module.exports = router;

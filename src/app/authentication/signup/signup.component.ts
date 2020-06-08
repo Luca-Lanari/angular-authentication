@@ -3,7 +3,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomStateMatcher} from '../../shared/error-matcher';
 import {AuthenticationService} from '../authentication.service';
 import {Subscription} from 'rxjs';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService} from 'ngx-spinner';
+import { Router } from '@angular/router';
+
+import {TokenPayload} from '../../shared/interfaces/TokenPayload';
 
 @Component({
   selector: 'app-signup',
@@ -12,6 +15,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   subscription: Subscription;
+  user: TokenPayload;
+
   signupForm = new FormGroup({
     name: new FormControl('', Validators.required),
     surname: new FormControl('', Validators.required),
@@ -20,12 +25,13 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   });
   matcher = new CustomStateMatcher();
 
-  constructor(private authService: AuthenticationService, private spinner: NgxSpinnerService) {
+  constructor(private authService: AuthenticationService, private spinner: NgxSpinnerService, private router: Router) {
   }
 
   ngOnInit() {
 
   }
+
   ngAfterViewInit(): void {
 
   }
@@ -34,12 +40,21 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   signup() {
     console.log(this.signupForm.value);
     this.spinner.show();
-    this.subscription = this.authService.registration(this.signupForm.value)
+    this.user = {
+      email: this.signupForm.value.email,
+      name: this.signupForm.value.name,
+      surname: this.signupForm.value.surname,
+      password: this.signupForm.value.password
+    };
+
+    this.subscription = this.authService.register(this.user)
       .subscribe(res => {
-        console.log(res);
         this.spinner.hide();
+        console.log(res);
+        this.router.navigateByUrl('/profile');
+
       }, error => {
-        console.log(error);
+        console.log('error: ', error);
         this.spinner.hide();
       });
   }
