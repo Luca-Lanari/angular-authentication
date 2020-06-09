@@ -1,15 +1,10 @@
 const express = require('express');
 const router = express.Router();
-// const mongoose = require('mongoose');
-// const mongooseUtils = require('../../mongoUtils');
-// const passport = require('passport');
-
 const AuthController = require('../../controller/authentication');
 const CtrlProfile = require('../../controller/profile');
+
 const auth = require('../../config/jwt');
-// const expressSession = require('express-session');
-// const jwt = require('../../jwt');
-// const middlewareAuth = require('server/config/passport');
+
 
 // Error handling
 // const sendError = (err, res) => {
@@ -26,11 +21,23 @@ const auth = require('../../config/jwt');
 
 router.post('/register', (req, res) => {
   try {
-    console.log(req.body);
+    console.log('REGISTER REQ.BODY', req.body);
+
+    if (!req.body.email)
+      return res.status(401).send({error: 'You must enter an email address.'});
+
+    if (!req.body.password)
+      return res.status(401).send({error: 'You must enter a password.'});
+
+
+
+
+
     AuthController.register(req, res);
+    res.status(201).json({message: 'ok'});
   } catch (err) {
     console.log(err);
-    return res.json({
+    res.json({
       status: err.status,
       error: err.error,
       message: err.message
@@ -40,6 +47,8 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
   try {
+    AuthController.login(req, res);
+    res.status(201).json({message: 'ok'});
   } catch (err) {
     return res.json({
       error: err
@@ -51,6 +60,7 @@ router.get('/profile', auth, (req, res) => {
   try {
     console.log('req profile: ', req.body);
     CtrlProfile.profileRead(req, res);
+    res.status(201).json({message: 'ok'});
   } catch (err) {
     res.status(401).json({
       error: err

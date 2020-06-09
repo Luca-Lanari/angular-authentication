@@ -1,47 +1,67 @@
 'use strict';
 
 let passport = require('passport');
-// let mongoose = require('mongoose');
-// let User = mongoose.model('User');
 const User = require('../models/users');
+require('../config/passport');
 
 module.exports.register = (req, res) => {
   try {
 
-    if (!req.body.email)
-      return res.status(401).send({ error: 'You must enter an email address.'});
+    //TODO Fix connection to mongoose
+    console.log('quiiiiiiiiiiii');
+    let user = new User();
+    user.name = req.body.name;
+    user.surname = req.body.surname;
+    user.email = req.body.email;
+    user.setPassword(req.body.password);
 
-    if (!req.body.password)
-      return res.status(401).send({ error: 'You must enter a password.'});
+    user.save((err, user) => {
+      console.log('sei nel save di mongoose');
+      if (err) {
+        console.log(err);
+        return res.status(401).send({error: err});
+      }
 
-    User.findOne({email: req.body.email}, (err, existingUser) => {
-      if (err)
-        return res.status(401).send({ error: err});
-
-      if (existingUser)
-        return res.status(422).send({ error: 'That email address is already in use.'});
-
-      let user = new User();
-      user.name = req.body.name;
-      user.surname = req.body.surname;
-      user.email = req.body.email;
-      user.setPassword(req.body.password);
-
-      user.save((err, user) => {
-        if (err) {
-          console.log(err);
-          return res.status(401).send({ error: err});
-        }
-
-        let token;
-        token = user.generateJwt();
-        res.status(200);
-        res.json({
-          'user': user,
-          'token': token
-        });
+      let token;
+      token = user.generateJwt();
+      res.status(200);
+      return res.json({
+        'user': user,
+        'token': token
       });
     });
+
+    // User.findOne({email: req.body.email}, (err, existingUser) => {
+    //   console.log('inizio findOne');
+    //   if (err)
+    //     return res.status(401).send({error: err});
+    //
+    //   if (existingUser)
+    //     return res.status(422).send({error: 'That email address is already in use.'});
+    //   console.log('quii prima di User');
+    //
+    //   let user = new User();
+    //   user.name = req.body.name;
+    //   user.surname = req.body.surname;
+    //   user.email = req.body.email;
+    //   user.setPassword(req.body.password);
+    //
+    //   user.save((err, user) => {
+    //     console.log('sei nel save di mongoose');
+    //     if (err) {
+    //       console.log(err);
+    //       return res.status(401).send({error: err});
+    //     }
+    //
+    //     let token;
+    //     token = user.generateJwt();
+    //     res.status(200);
+    //     res.json({
+    //       'user': user,
+    //       'token': token
+    //     });
+    //   });
+    // });
   } catch (err) {
     console.log(err);
   }
@@ -49,9 +69,9 @@ module.exports.register = (req, res) => {
 
 module.exports.login = (req, res) => {
 
-  passport.authenticate('local', null,(err, user, info) => {
+  passport.authenticate('local', null, (err, user, info) => {
     let token;
-
+    console.log('You are inside custom passport local');
     // If Passport throws/catches an error
     if (err) {
       return res.status(404).json(err);

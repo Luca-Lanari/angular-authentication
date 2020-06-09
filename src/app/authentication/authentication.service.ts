@@ -14,7 +14,7 @@ import {TokenResponse} from '../shared/interfaces/TokenResponse';
 })
 export class AuthenticationService {
 
-  apiURLRegistration = '/api/registration';
+  apiURLRegistration = '/api/register';
   private token: string;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -89,10 +89,6 @@ export class AuthenticationService {
 
   public profile(): Observable<any> {
     return this.request('get', 'profile');
-  }
-
-  registration(values: any) {
-    return this.http.post(this.apiURLRegistration, values);
   }
 
 }

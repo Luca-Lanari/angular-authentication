@@ -2,8 +2,10 @@
   <mat-toolbar-row>
     <div routerLink="/" class="navbar-title">Authentication</div>
     <div class="navbar-menu">
-      <div><a routerLink="login">Login</a></div>
-      <div><a routerLink="signup">Signup</a></div>
+      <div *ngIf="!authService.isLoggedIn()"><a routerLink="login">Login</a></div>
+      <div *ngIf="!authService.isLoggedIn()"><a routerLink="signup">Signup</a></div>
+      <div *ngIf="authService.isLoggedIn()"><a routerLink="profile">{{authService.getUserDetail()?.name}}</a></div>
+      <div *ngIf="authService.isLoggedIn()"><a (click)="authService.logout()">Logout</a></div>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

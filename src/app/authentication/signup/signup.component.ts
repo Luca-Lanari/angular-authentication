@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   signup() {
-    console.log(this.signupForm.value);
+    console.log('Signup values: ', this.signupForm.value);
     this.spinner.show();
     this.user = {
       email: this.signupForm.value.email,
@@ -50,8 +50,8 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.authService.register(this.user)
       .subscribe(res => {
         this.spinner.hide();
-        console.log(res);
         this.router.navigateByUrl('/profile');
+        console.log('response register FE: ', res);
 
       }, error => {
         console.log('error: ', error);
