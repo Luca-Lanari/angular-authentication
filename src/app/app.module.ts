@@ -8,6 +8,7 @@ import { NavbarComponent } from './core/navbar/navbar.component';
 import { AppMaterialModule } from './app-material/app-material.module';
 import { SharedModule } from './shared/shared.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgFlashMessagesModule } from 'ng-flash-messages';
 
 import { HomeComponent } from './core/home/home.component';
 
@@ -24,7 +25,8 @@ import { HomeComponent } from './core/home/home.component';
     AppMaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgFlashMessagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

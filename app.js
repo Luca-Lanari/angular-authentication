@@ -6,6 +6,8 @@ const app = express();
 const passport = require('passport');
 const dotenv = require('dotenv');
 
+require('./server/mongoUtils');
+
 dotenv.config();
 
 const api = '/api';

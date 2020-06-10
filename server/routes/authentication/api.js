@@ -5,6 +5,7 @@ const CtrlProfile = require('../../controller/profile');
 
 const auth = require('../../config/jwt');
 
+require('../../config/passport');
 
 // Error handling
 // const sendError = (err, res) => {
@@ -29,30 +30,20 @@ router.post('/register', (req, res) => {
     if (!req.body.password)
       return res.status(401).send({error: 'You must enter a password.'});
 
-
-
-
-
     AuthController.register(req, res);
-    res.status(201).json({message: 'ok'});
+    // res.status(201).json({message: 'ok'});
   } catch (err) {
     console.log(err);
-    res.json({
-      status: err.status,
-      error: err.error,
-      message: err.message
-    });
+    res.status(401).send({error: err});
   }
 });
 
 router.post('/login', (req, res) => {
   try {
+    console.log('req.body login: ', req.body);
     AuthController.login(req, res);
-    res.status(201).json({message: 'ok'});
   } catch (err) {
-    return res.json({
-      error: err
-    });
+    res.status(401).send({error: err});
   }
 });
 
@@ -60,11 +51,9 @@ router.get('/profile', auth, (req, res) => {
   try {
     console.log('req profile: ', req.body);
     CtrlProfile.profileRead(req, res);
-    res.status(201).json({message: 'ok'});
+    // res.status(201).json({message: 'ok'});
   } catch (err) {
-    res.status(401).json({
-      error: err
-    })
+    res.status(401).send({error: err});
   }
 });
 

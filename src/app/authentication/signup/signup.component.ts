@@ -4,7 +4,8 @@ import {CustomStateMatcher} from '../../shared/error-matcher';
 import {AuthenticationService} from '../authentication.service';
 import {Subscription} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
+import {NgFlashMessageService} from 'ng-flash-messages';
 
 import {TokenPayload} from '../../shared/interfaces/TokenPayload';
 
@@ -25,7 +26,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   });
   matcher = new CustomStateMatcher();
 
-  constructor(private authService: AuthenticationService, private spinner: NgxSpinnerService, private router: Router) {
+  constructor(private authService: AuthenticationService, private spinner: NgxSpinnerService, private router: Router, private flashMessage: NgFlashMessageService) {
   }
 
   ngOnInit() {
@@ -54,8 +55,14 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log('response register FE: ', res);
 
       }, error => {
-        console.log('error: ', error);
+        this.flashMessage.showFlashMessage({
+          messages: [error.error.error],
+          type: 'danger',
+          dismissible: true,
+          timeout: false,
+        });
         this.spinner.hide();
+
       });
   }
 

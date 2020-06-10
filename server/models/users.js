@@ -20,12 +20,16 @@ const userSchema = new mongoose.Schema ({
   salt: String
 });
 
+// TODO Fix salt and hash
 userSchema.methods.setPassword = (password) => {
-  this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
+  this.salt = 'salt';
+  this.hash = 'hash';
+  // this.salt = crypto.randomBytes(16).toString('hex');
+  // this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 };
 
 userSchema.methods.validPassword = (password) => {
+  console.log('password: ', password);
   let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512',).toString('hex');
   return this.hash === hash;
 };
