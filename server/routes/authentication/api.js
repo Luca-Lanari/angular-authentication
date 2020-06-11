@@ -54,7 +54,7 @@ router.post('/login', (req, res) => {
 
 router.get('/profile', auth, (req, res) => {
   try {
-    console.log('req profile: ', req.body);
+    console.log('req profile: ', req);
     CtrlProfile.profileRead(req, res);
   } catch (err) {
     res.status(401).send({error: err});

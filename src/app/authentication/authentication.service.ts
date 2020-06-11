@@ -21,15 +21,15 @@ export class AuthenticationService {
   }
 
   private saveToken(token: string): void {
-    console.log('saveToken(): ', token);
     localStorage.setItem('mean-token', token);
     this.token = token;
   }
 
   private getToken(): string {
-    // console.log('getToken(): ', this.token);
     if (!this.token) {
       return this.token = localStorage.getItem('mean-token');
+    } else {
+      return this.token;
     }
   }
 
@@ -42,6 +42,7 @@ export class AuthenticationService {
   public getUserDetail(): UserDetail {
     const token = this.getToken();
     let payload;
+
     if (token) {
       payload = token.split('.')[1];
       payload = window.atob(payload);
@@ -52,7 +53,6 @@ export class AuthenticationService {
   }
 
   public isLoggedIn(): boolean {
-    console.log('isLoggedIn');
     const user = this.getUserDetail();
     if (user) {
       return user.exp > Date.now() / 1000;
@@ -64,7 +64,6 @@ export class AuthenticationService {
   private request(method: 'post' | 'get', type: 'login' | 'register' | 'profile', user?: TokenPayload): Observable<any> {
     let base;
     let request;
-
     if (method === 'post') {
       base = this.http.post(`${this.api}${type}`, user);
     } else {
@@ -73,14 +72,12 @@ export class AuthenticationService {
 
     request = base.pipe(
       map((data: TokenResponse) => {
-        console.log('TokenResponse: ', data);
         if (data.token) {
           this.saveToken(data.token);
         }
         return data;
       })
     );
-    console.log('request: ', request);
     return request;
   }
 
@@ -92,6 +89,7 @@ export class AuthenticationService {
     return this.request('post', 'login', user);
   }
 
+  // TODO Fix passaggio dati dal FE al BE
   public profile(): Observable<any> {
     return this.request('get', 'profile');
   }
