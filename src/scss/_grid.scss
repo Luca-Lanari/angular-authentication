@@ -159,6 +159,10 @@ $container-lg:                 $container-large-desktop !default;
   @include make-row;
 }
 
+.container-fixed {
+  @include container-fixed;
+}
+
 .col-1 { @include make-sm-column(1); }
 .col-2 { @include make-sm-column(2); }
 .col-3 { @include make-sm-column(3); }

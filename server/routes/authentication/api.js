@@ -22,8 +22,6 @@ require('../../config/passport');
 
 router.post('/register', (req, res) => {
   try {
-    console.log('REGISTER REQ.BODY', req.body);
-
     if (!req.body.email)
       return res.status(401).send({error: 'You must enter an email address.'});
 
@@ -40,8 +38,15 @@ router.post('/register', (req, res) => {
 
 router.post('/login', (req, res) => {
   try {
+    if (!req.body.email)
+      return res.status(401).send({error: 'You must enter an email address.'});
+
+    if (!req.body.password)
+      return res.status(401).send({error: 'You must enter a password.'});
+
     console.log('req.body login: ', req.body);
     AuthController.login(req, res);
+
   } catch (err) {
     res.status(401).send({error: err});
   }
@@ -51,7 +56,6 @@ router.get('/profile', auth, (req, res) => {
   try {
     console.log('req profile: ', req.body);
     CtrlProfile.profileRead(req, res);
-    // res.status(201).json({message: 'ok'});
   } catch (err) {
     res.status(401).send({error: err});
   }

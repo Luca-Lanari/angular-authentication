@@ -1,11 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {CustomStateMatcher} from '../../shared/error-matcher';
-import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CustomStateMatcher } from '../../shared/error-matcher';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
-import {TokenPayload} from '../../shared/interfaces/TokenPayload';
-import {AuthenticationService} from '../authentication.service';
+import { TokenPayload } from '../../shared/interfaces/TokenPayload';
+import { AuthenticationService } from '../authentication.service';
+import { NgFlashMessageService } from 'ng-flash-messages';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   });
   matcher = new CustomStateMatcher();
 
-  constructor(private authService: AuthenticationService, private router: Router) {
+  constructor(private authService: AuthenticationService, private router: Router, private flashMessage: NgFlashMessageService) {
   }
 
   ngOnInit() {
@@ -40,6 +41,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/profile');
     }, err => {
       console.log(err);
+      this.flashMessage.showFlashMessage({
+        messages: [err.error.message],
+        type: 'danger',
+        dismissible: true,
+        timeout: 3000,
+      });
     });
   }
 

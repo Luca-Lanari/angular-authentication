@@ -14,18 +14,20 @@ import {TokenResponse} from '../shared/interfaces/TokenResponse';
 })
 export class AuthenticationService {
 
-  apiURLRegistration = '/api/register';
+  private api = '/api/';
   private token: string;
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   private saveToken(token: string): void {
+    console.log('saveToken(): ', token);
     localStorage.setItem('mean-token', token);
     this.token = token;
   }
 
   private getToken(): string {
+    // console.log('getToken(): ', this.token);
     if (!this.token) {
       return this.token = localStorage.getItem('mean-token');
     }
@@ -50,6 +52,7 @@ export class AuthenticationService {
   }
 
   public isLoggedIn(): boolean {
+    console.log('isLoggedIn');
     const user = this.getUserDetail();
     if (user) {
       return user.exp > Date.now() / 1000;
@@ -63,19 +66,21 @@ export class AuthenticationService {
     let request;
 
     if (method === 'post') {
-      base = this.http.post(`/api/${type}`, user);
+      base = this.http.post(`${this.api}${type}`, user);
     } else {
-      base = this.http.get(`/api/${type}`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
+      base = this.http.get(`${this.api}${type}`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     }
 
     request = base.pipe(
       map((data: TokenResponse) => {
+        console.log('TokenResponse: ', data);
         if (data.token) {
           this.saveToken(data.token);
         }
         return data;
       })
     );
+    console.log('request: ', request);
     return request;
   }
 
