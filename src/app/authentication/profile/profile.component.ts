@@ -16,7 +16,6 @@ export class ProfileComponent implements OnInit {
   //TODO Add Loader
   ngOnInit() {
     this.authService.profile().subscribe(user => {
-      console.log('user profile FE: ', user);
       this.userDetail = user;
     }, err => {
       console.log(err);

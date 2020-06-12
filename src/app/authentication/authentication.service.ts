@@ -27,10 +27,9 @@ export class AuthenticationService {
 
   private getToken(): string {
     if (!this.token) {
-      return this.token = localStorage.getItem('mean-token');
-    } else {
-      return this.token;
+      this.token = localStorage.getItem('mean-token');
     }
+    return this.token;
   }
 
   public logout(): void {
@@ -39,13 +38,19 @@ export class AuthenticationService {
     this.router.navigateByUrl('/');
   }
 
+  public parseJwt(token) {
+    let payload;
+    payload = token.split('.')[1];
+    payload = payload.replace('-', '+').replace('_', '/');
+    payload = window.atob(payload);
+    return payload;
+  }
   public getUserDetail(): UserDetail {
     const token = this.getToken();
     let payload;
 
     if (token) {
-      payload = token.split('.')[1];
-      payload = window.atob(payload);
+      payload = this.parseJwt(token);
       return JSON.parse(payload);
     } else {
       return null;

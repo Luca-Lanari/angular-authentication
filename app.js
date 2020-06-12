@@ -4,11 +4,11 @@ const path = require('path');
 const http = require('http');
 const app = express();
 const passport = require('passport');
-const dotenv = require('dotenv');
+const jwt = require('express-jwt');
+
 
 require('./server/mongoUtils');
-
-dotenv.config();
+require('dotenv').config();
 
 const api = '/api';
 const auth = require('./server/routes/authentication/api');

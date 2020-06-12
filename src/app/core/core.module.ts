@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
-import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
+// import { NavbarComponent } from './navbar/navbar.component';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
+    HomeComponent,
     // NavbarComponent,
-    HomeComponent
+    // PageNotFoundComponent
   ],
   imports: [
     SharedModule

@@ -1,7 +1,10 @@
 const jwt = require('express-jwt');
+require('dotenv').config();
 
+//TODO FIX process.env
+console.log('process env: ', process.env.JWT_SECRET);
 let auth = jwt({
-  secret: 'MY_SECRET',
+  secret: 'mySecretKey_22',
   userProperty: 'payload'
 });
 

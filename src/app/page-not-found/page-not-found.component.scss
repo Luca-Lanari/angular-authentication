@@ -1,0 +1,17 @@
+//.page-not-found {
+//  position: fixed;
+//  top: 44%;
+//  left: 40%;
+//  font-weight: bold;
+//  font-size: 30px;
+//}
+.page-not-found {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 30px;
+}

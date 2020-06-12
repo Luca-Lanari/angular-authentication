@@ -14,7 +14,7 @@ import {TokenPayload} from '../../shared/interfaces/TokenPayload';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SignupComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   user: TokenPayload;
 
@@ -26,20 +26,17 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   });
   matcher = new CustomStateMatcher();
 
-  constructor(private authService: AuthenticationService, private spinner: NgxSpinnerService, private router: Router, private flashMessage: NgFlashMessageService) {
+  constructor(private authService: AuthenticationService,
+              private spinner: NgxSpinnerService,
+              private router: Router,
+              private flashMessage: NgFlashMessageService) {
   }
 
   ngOnInit() {
 
   }
 
-  ngAfterViewInit(): void {
-
-  }
-
-
   signup() {
-    console.log('Signup values: ', this.signupForm.value);
     this.spinner.show();
     this.user = {
       email: this.signupForm.value.email,
@@ -59,7 +56,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
           messages: [error.error.error],
           type: 'danger',
           dismissible: true,
-          timeout: false,
+          timeout: 2000,
         });
         this.spinner.hide();
 

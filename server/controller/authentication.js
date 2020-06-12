@@ -61,42 +61,4 @@ module.exports.login = (req, res) => {
       res.status(401).json(info);
     }
   })(req, res);
-
-
-  // User.findOne({email: req.body.email})
-  //   .then(user => {
-  //     console.log('User.findOne: ', user);
-  //     if (!user) {
-  //       return res.status(422).send({error: 'Email address does not exist.'});
-  //     } else {
-  //       passport.authenticate('local', (err, user, info) => {
-  //         let token;
-  //         console.log('You are inside custom passport local: ', user);
-  //         // If Passport throws/catches an error
-  //         if (err) {
-  //           // return res.status(404).json(err);
-  //           return next(err);
-  //
-  //         }
-  //
-  //         // If a user is found
-  //         if (user) {
-  //           token = user.generateJwt();
-  //           res.status(200);
-  //           res.json({
-  //             "token": token
-  //           });
-  //         } else {
-  //           // If user is not found
-  //           res.status(401).json(info);
-  //         }
-  //       })(req, res);
-  //     }
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //     res.status(401).send({error: err});
-  //   });
-
-
 };

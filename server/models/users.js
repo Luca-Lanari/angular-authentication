@@ -30,17 +30,17 @@ userSchema.methods.validPassword = function (password) {
   return this.hash === hash;
 };
 
-userSchema.methods.generateJwt = () => {
+userSchema.methods.generateJwt = function () {
+  console.log('envvvvvvvvvvvvvvvvvvvv: ', process.env.JWT_SECRET);
   let expiry = new Date();
   expiry.setDate(expiry.getDate() + 7);
-
   return jwt.sign({
     _id: this._id,
     email: this.email,
     name: this.name,
     surname: this.surname,
     exp: parseInt(expiry.getTime() / 1000),
-  }, "MY_SECRET");
+  }, process.env.JWT_SECRET);
 };
 
 const User = mongoose.model('User', userSchema);
