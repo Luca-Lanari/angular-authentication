@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongodb = 'mongodb://localhost:27017';
+const mongodb = `mongodb://${process.env.DB_HOST}:27017`;
 const dbName = 'authentication_db';
 
 mongoose.connect(`${mongodb}/${dbName}`, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });

@@ -4,15 +4,12 @@ const path = require('path');
 const http = require('http');
 const app = express();
 const passport = require('passport');
-const jwt = require('express-jwt');
 
-
-require('./server/mongoUtils');
 require('dotenv').config();
+require('./server/mongoUtils');
 
 const api = '/api';
 const auth = require('./server/routes/authentication/api');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -33,4 +30,4 @@ const port = process.env.PORT || '3000';
 app.set('port', port);
 
 const server = http.createServer(app);
-server.listen(port, () => console.log(`Running on localhost:${port}`));
+server.listen(port, () => console.log(`Running on ${process.env.DB_HOST}:${port}`));
