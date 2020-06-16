@@ -1,13 +1,12 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomStateMatcher} from '../../shared/error-matcher';
-import {AuthenticationService} from '../authentication.service';
-import {Subscription} from 'rxjs';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {Router} from '@angular/router';
-import {NgFlashMessageService} from 'ng-flash-messages';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomStateMatcher } from '../../shared/error-matcher';
+import { AuthenticationService } from '../../_services/authentication.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { NgFlashMessageService } from 'ng-flash-messages';
 
-import {TokenPayload} from '../../shared/interfaces/TokenPayload';
+import { TokenPayload } from '../../shared/interfaces/TokenPayload';
 
 @Component({
   selector: 'app-signup',
@@ -27,7 +26,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   matcher = new CustomStateMatcher();
 
   constructor(private authService: AuthenticationService,
-              private spinner: NgxSpinnerService,
               private router: Router,
               private flashMessage: NgFlashMessageService) {
   }
@@ -37,7 +35,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   signup() {
-    this.spinner.show();
     this.user = {
       email: this.signupForm.value.email,
       name: this.signupForm.value.name,
@@ -47,10 +44,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.subscription = this.authService.register(this.user)
       .subscribe(res => {
-        this.spinner.hide();
         this.router.navigateByUrl('/profile');
-        console.log('response register FE: ', res);
-
       }, error => {
         this.flashMessage.showFlashMessage({
           messages: [error.error.error],
@@ -58,8 +52,6 @@ export class SignupComponent implements OnInit, OnDestroy {
           dismissible: true,
           timeout: 2000,
         });
-        this.spinner.hide();
-
       });
   }
 

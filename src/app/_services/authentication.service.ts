@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
-import {UserDetail} from '../shared/interfaces/UserDetail';
-import {TokenPayload} from '../shared/interfaces/TokenPayload';
-import {TokenResponse} from '../shared/interfaces/TokenResponse';
+import { UserDetail } from '../shared/interfaces/UserDetail';
+import { TokenPayload } from '../shared/interfaces/TokenPayload';
+import { TokenResponse } from '../shared/interfaces/TokenResponse';
 
 
 @Injectable({
@@ -94,7 +94,6 @@ export class AuthenticationService {
     return this.request('post', 'login', user);
   }
 
-  // TODO Fix passaggio dati dal FE al BE
   public profile(): Observable<any> {
     return this.request('get', 'profile');
   }

@@ -1,5 +1,5 @@
 import {Component, OnInit, ChangeDetectorRef, AfterViewChecked} from '@angular/core';
-import { AuthenticationService } from '../../authentication/authentication.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
