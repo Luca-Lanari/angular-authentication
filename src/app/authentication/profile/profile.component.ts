@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CustomStateMatcher } from '../../shared/error-matcher';
+import { Subscription } from 'rxjs';
 
 import { AuthenticationService } from '../../_services/authentication.service';
 import { UserDetail } from '../../shared/interfaces/UserDetail';
@@ -12,8 +15,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private authService: AuthenticationService) { }
   userDetail: UserDetail;
-
-  //TODO Add Loader
+  furtherUserInfoForm = new FormGroup({});
+  matcher = new CustomStateMatcher();
   ngOnInit() {
     this.authService.profile().subscribe(user => {
       this.userDetail = user;
@@ -21,5 +24,7 @@ export class ProfileComponent implements OnInit {
       console.log(err);
     });
   }
+
+
 
 }

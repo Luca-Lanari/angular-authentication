@@ -1,12 +1,42 @@
-<div class="container-fixed">
-  <div class="row">
-    <h1>Your Profile</h1>
-    <div class="col-6">
-      {{userDetail?.name}} {{userDetail?.surname}}
-    </div>
-    <div class="col-6">
-      {{userDetail?.email}}
-    </div>
-  </div>
-</div>
+<!--<div class="container-fixed">-->
+<!--  <div class="row">-->
+<!--    <h1>Your Profile</h1>-->
+<!--    <div class="col-6">-->
+<!--      {{userDetail?.name}} {{userDetail?.surname}}-->
+<!--    </div>-->
+<!--    <div class="col-6">-->
+<!--      {{userDetail?.email}}-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="user-info">-->
+<!--    <mat-card>-->
+<!--      <mat-card-header>-->
+<!--        <mat-card-title>Your info</mat-card-title>-->
+<!--      </mat-card-header>-->
+<!--      <mat-card-content>-->
+<!--        <form [formGroup]="furtherUserInfoForm" (ngSubmit)="furtherUserInfo()">-->
+<!--          <mat-form-field>-->
+<!--            <mat-label>Name</mat-label>-->
+<!--            <input matInput formControlName="name" [errorStateMatcher]="matcher">-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Password</mat-label>-->
+<!--            <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">-->
+<!--            <mat-error *ngIf="furtherUserInfoForm.get('password').hasError('required')">-->
+<!--              Password required-->
+<!--            </mat-error>-->
+<!--            <mat-error *ngIf="furtherUserInfoForm.get('password').hasError('minlength')">-->
+<!--              Password must be at least 4 characters-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+<!--          <button mat-raised-button color="primary" type="submit" [disabled]="!furtherUserInfoForm.valid">Submit</button>-->
+<!--        </form>-->
+<!--      </mat-card-content>-->
+<!--    </mat-card>-->
+<!--  </div>-->
+
+
+<!--</div>-->
 

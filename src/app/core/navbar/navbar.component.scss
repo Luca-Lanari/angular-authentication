@@ -1,16 +1,39 @@
+@import 'src/scss/variables';
+
 mat-toolbar-row {
   justify-content: space-between;
 }
+
 .navbar-title {
   cursor: pointer;
+
   &:focus {
     outline: none;
   }
 }
+
 .navbar-menu {
-  display: flex;
-  justify-content: space-between;
-  div {
-    margin-left: 5px;
+  .not-logged, .logged {
+    display: flex;
+    justify-content: space-between;
+    div {
+      margin-left: 5px;
+    }
+
+    a {
+      color: $light-blue;
+      margin-right: 5px;
+      text-decoration: none;
+    }
+
+    a:hover {
+      cursor: pointer;
+    }
   }
+
+  .user-logged {
+    font-size: 18px;
+  }
+
+
 }

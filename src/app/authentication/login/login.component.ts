@@ -35,9 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     };
-    //TODO Add loader
+
     this.subscription = this.authService.login(this.signin).subscribe(res => {
-      console.log(res);
       this.router.navigateByUrl('/profile');
     }, err => {
       console.log(err);

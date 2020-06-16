@@ -2,10 +2,23 @@
   <mat-toolbar-row>
     <div routerLink="/" class="navbar-title">Authentication</div>
     <div class="navbar-menu">
-      <div *ngIf="!authService.isLoggedIn()"><a routerLink="login">Login</a></div>
-      <div *ngIf="!authService.isLoggedIn()"><a routerLink="signup">Signup</a></div>
-      <div *ngIf="authService.isLoggedIn()"><a routerLink="profile">{{authService.getUserDetail()?.name}}</a></div>
-      <div *ngIf="authService.isLoggedIn()"><a (click)="authService.logout()">Logout</a></div>
+
+      <div class="not-logged" *ngIf="!authService.isLoggedIn()">
+        <div><a routerLink="login">Login</a></div>
+        <div><a routerLink="signup">Signup</a></div>
+      </div>
+
+      <div class="logged" *ngIf="authService.isLoggedIn()">
+        <div>
+          <button class="user-logged mat-body-1" mat-button
+                  [matMenuTriggerFor]="menuLogged"><a>Hi {{authService.getUserDetail()?.name}}</a></button>
+          <mat-menu #menuLogged="matMenu">
+            <button mat-menu-item><a routerLink="profile">Profile</a></button>
+            <button mat-menu-item><a (click)="authService.logout()">Logout</a></button>
+          </mat-menu>
+        </div>
+      </div>
+
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
