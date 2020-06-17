@@ -4,17 +4,16 @@
     <div class="navbar-menu">
 
       <div class="not-logged" *ngIf="!authService.isLoggedIn()">
-        <div><a routerLink="login">Login</a></div>
-        <div><a routerLink="signup">Signup</a></div>
+        <div><a class="color-black" routerLink="login">Login</a></div>
+        <div><a class="color-black" routerLink="signup">Signup</a></div>
       </div>
 
       <div class="logged" *ngIf="authService.isLoggedIn()">
         <div>
-          <button class="user-logged mat-body-1" mat-button
-                  [matMenuTriggerFor]="menuLogged"><a>Hi {{authService.getUserDetail()?.name}}</a></button>
+          <button class="user-logged" mat-button [matMenuTriggerFor]="menuLogged">Hi {{authService.getUserDetail()?.name}}</button>
           <mat-menu #menuLogged="matMenu">
-            <button mat-menu-item><a routerLink="profile">Profile</a></button>
-            <button mat-menu-item><a (click)="authService.logout()">Logout</a></button>
+            <button mat-menu-item><a class="color-black" routerLink="profile">Profile</a></button>
+            <button class="color-black" mat-menu-item (click)="authService.logout()">Logout</button>
           </mat-menu>
         </div>
       </div>

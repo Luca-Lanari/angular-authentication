@@ -5,4 +5,25 @@
   position: fixed;
   align-items: center;
   justify-content: center;
+
+  mat-card {
+    width: 400px;
+
+    .user-info-form {
+      mat-form-field {
+        display: block;
+        padding: 16px;
+      }
+
+      button {
+        float: right;
+        margin: 10px;
+      }
+
+      mat-card-subtitle {
+        margin: 16px;
+      }
+    }
+  }
+
 }

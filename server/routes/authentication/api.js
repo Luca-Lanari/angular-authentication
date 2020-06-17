@@ -44,6 +44,15 @@ router.get('/profile', auth, (req, res) => {
   }
 });
 
+router.post('/update-user-info', auth, (req, res) => {
+  try {
+    console.log('/update-user-info req.payload._id: ', req.payload._id);
+    CtrlProfile.updateUserInfo(req, res);
+  } catch (err) {
+    res.status(401).send({error: err});
+  }
+});
+
 module.exports = router;
 
 

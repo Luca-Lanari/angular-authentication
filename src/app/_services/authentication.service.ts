@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { UserDetail } from '../shared/interfaces/UserDetail';
-import { TokenPayload } from '../shared/interfaces/TokenPayload';
-import { TokenResponse } from '../shared/interfaces/TokenResponse';
+import { UserDetail } from '../_interfaces/UserDetail';
+import { TokenPayload } from '../_interfaces/TokenPayload';
+import { TokenResponse } from '../_interfaces/TokenResponse';
 
 
 @Injectable({
@@ -66,11 +66,15 @@ export class AuthenticationService {
     }
   }
 
-  private request(method: 'post' | 'get', type: 'login' | 'register' | 'profile', user?: TokenPayload): Observable<any> {
+  private request(method: 'post' | 'get', type, user?: TokenPayload): Observable<any> {
+    console.log('quiiiiiiii');
     let base;
     let request;
+
     if (method === 'post') {
-      base = this.http.post(`${this.api}${type}`, user);
+      base = (type === 'login' || 'register') ?
+        this.http.post(`${this.api}${type}`, user) :
+        this.http.post(`${this.api}${type}`, user/*{headers: {Authorization: `Bearer ${this.getToken()}`}}*/);
     } else {
       base = this.http.get(`${this.api}${type}`, {headers: {Authorization: `Bearer ${this.getToken()}`}});
     }
@@ -96,6 +100,10 @@ export class AuthenticationService {
 
   public profile(): Observable<any> {
     return this.request('get', 'profile');
+  }
+
+  public uploadUserInfo(user: TokenPayload): Observable<any> {
+    return this.request('post', 'update-user-info', user);
   }
 
 }

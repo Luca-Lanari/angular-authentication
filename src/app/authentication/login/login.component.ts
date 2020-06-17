@@ -4,7 +4,7 @@ import { CustomStateMatcher } from '../../shared/error-matcher';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { TokenPayload } from '../../shared/interfaces/TokenPayload';
+import { TokenPayload } from '../../_interfaces/TokenPayload';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { NgFlashMessageService } from 'ng-flash-messages';
 

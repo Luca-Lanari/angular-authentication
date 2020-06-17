@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgFlashMessageService } from 'ng-flash-messages';
 
-import { TokenPayload } from '../../shared/interfaces/TokenPayload';
+import { TokenPayload } from '../../_interfaces/TokenPayload';
 
 @Component({
   selector: 'app-signup',

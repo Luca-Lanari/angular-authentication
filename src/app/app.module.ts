@@ -16,6 +16,7 @@ import { LoaderService } from './_services/loader.service';
 import { LoaderInterceptor } from './_interceptors/loader.interceptor';
 
 import { NavbarComponent } from './core/navbar/navbar.component';
+import {AuthenticationInterceptor} from './_interceptors/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { NavbarComponent } from './core/navbar/navbar.component';
     HttpClientModule,
     NgFlashMessagesModule
   ],
-  providers: [LoaderService, { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }],
+  providers: [LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

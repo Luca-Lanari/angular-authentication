@@ -1,4 +1,5 @@
-@import 'src/scss/variables';
+@import 'src/scss/_variables';
+@import "src/scss/_base";
 
 mat-toolbar-row {
   justify-content: space-between;
@@ -6,6 +7,7 @@ mat-toolbar-row {
 
 .navbar-title {
   cursor: pointer;
+  color: $black;
 
   &:focus {
     outline: none;
@@ -16,24 +18,24 @@ mat-toolbar-row {
   .not-logged, .logged {
     display: flex;
     justify-content: space-between;
+
     div {
       margin-left: 5px;
     }
 
     a {
-      color: $light-blue;
       margin-right: 5px;
-      text-decoration: none;
     }
+
 
     a:hover {
       cursor: pointer;
     }
+
   }
 
   .user-logged {
     font-size: 18px;
   }
-
-
 }
+
