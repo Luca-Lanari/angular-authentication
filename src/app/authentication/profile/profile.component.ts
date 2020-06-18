@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CustomStateMatcher } from '../../shared/error-matcher';
+import { CustomStateMatcher } from '../../_helpers/error-matcher';
 import { Subscription } from 'rxjs';
 
 import { AuthenticationService } from '../../_services/authentication.service';
@@ -17,22 +17,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   userDetail: UserDetail;
-  userInfoForm;
+  // userInfoForm;
   userData: TokenPayload;
   matcher;
 
   constructor(private authService: AuthenticationService, private flashMessage: NgFlashMessageService) {
   }
 
+  userInfoForm = new FormGroup({
+    name: new FormControl(''),
+    surname: new FormControl(''),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    address: new FormControl(''),
+    city: new FormControl(''),
+    // zipCode: new FormControl('')
+  });
   ngOnInit() {
-    this.userInfoForm = new FormGroup({
-      name: new FormControl(''),
-      surname: new FormControl(''),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      address: new FormControl(''),
-      city: new FormControl(''),
-      // zipCode: new FormControl('')
-    });
+
 
     this.matcher = new CustomStateMatcher();
     this.subscription = this.authService.profile().subscribe(user => {
@@ -40,8 +41,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.userInfoForm.controls.name.setValue(this.userDetail.name);
       this.userInfoForm.controls.surname.setValue(this.userDetail.surname);
       this.userInfoForm.controls.email.setValue(this.userDetail.email);
-      this.userInfoForm.controls.address.setValue(this.userInfoForm.address || '');
-      this.userInfoForm.controls.city.setValue(this.userInfoForm.city || '');
+      this.userInfoForm.controls.address.setValue(this.userDetail.address);
+      this.userInfoForm.controls.city.setValue(this.userDetail.city);
     }, err => {
       console.log(err);
     });
@@ -50,7 +51,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   userInfo() {
-    console.log(this.userInfoForm.value);
     this.userData = {
       name: this.userInfoForm.value.name,
       surname: this.userInfoForm.value.surname,
@@ -59,7 +59,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       city: this.userInfoForm.value.city
     };
     this.subscription = this.authService.uploadUserInfo(this.userData).subscribe(res => {
-      console.log('uploadUserInfo: ', res);
       this.flashMessage.showFlashMessage({
         messages: ['Updated user info!'],
         type: 'success',
@@ -67,7 +66,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         timeout: 2000,
       });
     }, err => {
-      console.log(err);
       this.flashMessage.showFlashMessage({
         messages: [err.message],
         type: 'danger',

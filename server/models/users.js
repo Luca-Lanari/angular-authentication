@@ -16,6 +16,14 @@ const userSchema = new mongoose.Schema ({
     type: String,
     required: true
   },
+  address: {
+    type: String,
+    default: '',
+  },
+  city: {
+    type: String,
+    default: '',
+  },
   hash: String,
   salt: String
 });

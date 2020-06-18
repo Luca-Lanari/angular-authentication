@@ -1,7 +1,7 @@
 <div class="user-info">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Your info</mat-card-title>
+      <mat-card-title>Profile</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form class="user-info-form" [formGroup]="userInfoForm" (ngSubmit)="userInfo()">
@@ -9,7 +9,6 @@
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" [errorStateMatcher]="matcher">
         </mat-form-field>
-
         <mat-form-field>
           <mat-label>Surname</mat-label>
           <input matInput formControlName="surname" [errorStateMatcher]="matcher">
@@ -33,9 +32,6 @@
           <mat-label>City</mat-label>
           <input matInput formControlName="city" [errorStateMatcher]="matcher">
         </mat-form-field>
-
-
-
         <!--          <mat-form-field>-->
         <!--            <mat-label>Password</mat-label>-->
         <!--            <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">-->

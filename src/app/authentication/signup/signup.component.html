@@ -31,7 +31,8 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher">
+          <input matInput [type]="hidePsw ? 'password' : 'text'" formControlName="password" [errorStateMatcher]="matcher">
+          <mat-icon matSuffix (click)="togglePassword('password')">{{hidePsw ? 'visibility_off' : 'visibility'}}</mat-icon>
           <mat-error *ngIf="signupForm.get('password').hasError('required')">
             Password required
           </mat-error>
@@ -39,7 +40,15 @@
             Password must be at least 4 characters
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid" >Signup</button>
+        <mat-form-field>
+          <mat-label>Confirm Password</mat-label>
+          <input matInput [type]="hideConfPsw ? 'password' : 'text'" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+          <mat-icon matSuffix (click)="togglePassword('confirmPassword')">{{hideConfPsw ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-error *ngIf="signupForm.get('confirmPassword').hasError('required') || signupForm.hasError('notSame')">
+            Passwords do not match
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Signup</button>
       </form>
     </mat-card-content>
   </mat-card>
