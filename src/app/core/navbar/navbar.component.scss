@@ -27,7 +27,6 @@ mat-toolbar-row {
       margin-right: 5px;
     }
 
-
     a:hover {
       cursor: pointer;
     }
@@ -37,5 +36,41 @@ mat-toolbar-row {
   .user-logged {
     font-size: 18px;
   }
+}
+
+.navbar-menu-mobile {
+  display: none;
+}
+
+.sidenav-container-mobile {
+  mat-sidenav {
+    width: 40%;
+  }
+
+  mat-nav-list {
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 15px;
+      font-size: 18px;
+      cursor: pointer;
+
+      div:hover {
+        background-color: $light-grey-5;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .navbar-title, .navbar-menu {
+    display: none;
+  }
+
+  .navbar-menu-mobile {
+    display: block;
+  }
+
 }
 

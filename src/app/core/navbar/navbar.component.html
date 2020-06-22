@@ -2,22 +2,42 @@
   <mat-toolbar-row>
     <div routerLink="/" class="navbar-title">Authentication</div>
     <div class="navbar-menu">
-
       <div class="not-logged" *ngIf="!authService.isLoggedIn()">
         <div><a class="color-black" routerLink="login">Login</a></div>
         <div><a class="color-black" routerLink="signup">Signup</a></div>
       </div>
-
       <div class="logged" *ngIf="authService.isLoggedIn()">
         <div>
-          <button class="user-logged" mat-button [matMenuTriggerFor]="menuLogged">Hi {{authService.getUserDetail()?.name}}</button>
+          <button class="user-logged" mat-button [matMenuTriggerFor]="menuLogged">
+            Hi {{authService.getUserDetail()?.name}}</button>
           <mat-menu #menuLogged="matMenu">
             <button mat-menu-item><a class="color-black" routerLink="profile">Profile</a></button>
             <button class="color-black" mat-menu-item (click)="authService.logout()">Logout</button>
           </mat-menu>
         </div>
       </div>
+    </div>
 
+    <div class="navbar-menu-mobile">
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
+<mat-sidenav-container class="sidenav-container-mobile"
+                       [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+               [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    <mat-nav-list>
+      <div *ngIf="!authService.isLoggedIn()">
+        <div routerLink="login" (click)="snav.toggle()"><a class="color-black">Login</a></div>
+        <div routerLink="signup" (click)="snav.toggle()"><a class="color-black">Signup</a></div>
+      </div>
+      <div *ngIf="authService.isLoggedIn()">
+        <div routerLink="profile" (click)="snav.toggle()"><a class="color-black">Profile</a></div>
+        <div (click)="this.authService.logout(); snav.toggle()"><a class="color-black">Logout</a></div>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+</mat-sidenav-container>
