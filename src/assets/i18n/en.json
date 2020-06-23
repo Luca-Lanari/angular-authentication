@@ -1,0 +1,37 @@
+{
+  "app_title": "Authentication",
+  "welcome": "Welcome!",
+  "hello": "Hi",
+  "name": "Name",
+  "surname": "Surname",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "pageNotFound": "404 Page Not Found!",
+  "send": "send",
+  "furtherInfo": "Further Info",
+  "address": "Address",
+  "city": "City",
+  "update": "Update",
+  "navbar": {
+    "login": "Login",
+    "signup": "Signup",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "errors": {
+    "fieldRequired": "Field required",
+    "nameRequired": "Name required",
+    "surnameRequired": "Surname required",
+    "emailRequired": "Email required",
+    "validEmail": "Insert valid email",
+    "passwordRequired": "Password required",
+    "passwordMinCharacters": "Password must be at least 4 characters",
+    "passwordsMatch": "Passwords do not match"
+  },
+  "translate": {
+    "italian": "Translate site into italian",
+    "english": "Translate site into english"
+  }
+
+}

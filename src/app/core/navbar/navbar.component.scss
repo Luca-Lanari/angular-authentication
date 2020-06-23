@@ -1,5 +1,6 @@
 @import 'src/scss/_variables';
 @import "src/scss/_base";
+@import "src/scss/_flags";
 
 mat-toolbar-row {
   justify-content: space-between;
@@ -18,6 +19,14 @@ mat-toolbar-row {
   .not-logged, .logged {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
+    .navbar-flags {
+      margin-right: 20px;
+      .flag-position {
+        cursor: pointer;
+        margin-left: 10px;
+      }
+    }
 
     div {
       margin-left: 5px;

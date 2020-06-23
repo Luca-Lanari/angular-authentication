@@ -1,35 +1,35 @@
 <div class="user-info">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Profile</mat-card-title>
+      <mat-card-title>{{ 'navbar.profile' | translate }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form class="user-info-form" [formGroup]="userInfoForm" (ngSubmit)="userInfo()">
         <mat-form-field>
-          <mat-label>Name</mat-label>
+          <mat-label>{{ 'name' | translate }}</mat-label>
           <input matInput formControlName="name" [errorStateMatcher]="matcher">
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Surname</mat-label>
+          <mat-label>{{ 'surname' | translate }}</mat-label>
           <input matInput formControlName="surname" [errorStateMatcher]="matcher">
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Email</mat-label>
+          <mat-label>{{ 'email' | translate }}</mat-label>
           <input matInput formControlName="email" [errorStateMatcher]="matcher">
           <mat-error *ngIf="userInfoForm.get('email').hasError('required')">
-            Email required
+            {{ 'errors.emailRequired' | translate }}
           </mat-error>
           <mat-error *ngIf="userInfoForm.get('email').hasError('email')">
-            Insert valid email
+            {{ 'errors.validEmail' | translate }}
           </mat-error>
         </mat-form-field>
-        <mat-card-subtitle>Further info</mat-card-subtitle>
+        <mat-card-subtitle>{{ 'furtherInfo' | translate }}</mat-card-subtitle>
         <mat-form-field>
-          <mat-label>Address</mat-label>
+          <mat-label>{{ 'address' | translate }}</mat-label>
           <input matInput formControlName="address" [errorStateMatcher]="matcher">
         </mat-form-field>
         <mat-form-field>
-          <mat-label>City</mat-label>
+          <mat-label>{{ 'city' | translate }}</mat-label>
           <input matInput formControlName="city" [errorStateMatcher]="matcher">
         </mat-form-field>
         <!--          <mat-form-field>-->
@@ -42,7 +42,7 @@
         <!--              Password must be at least 4 characters-->
         <!--            </mat-error>-->
         <!--          </mat-form-field>-->
-        <button mat-raised-button color="primary" type="submit" [disabled]="!userInfoForm.valid">Update</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!userInfoForm.valid">{{ 'update' | translate }}</button>
       </form>
     </mat-card-content>
   </mat-card>

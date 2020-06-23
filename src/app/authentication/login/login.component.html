@@ -1,33 +1,33 @@
 <div class="login-container">
   <mat-card>
     <mat-card-header class="login-header">
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title>{{ 'navbar.login' | translate }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form class="login-form" [formGroup]="loginForm" (ngSubmit)="userLogin()">
         <mat-form-field>
-          <mat-label>Email</mat-label>
+          <mat-label>{{ 'email' | translate }}</mat-label>
           <input matInput formControlName="email" [errorStateMatcher]="matcher">
           <mat-error *ngIf="loginForm.get('email').hasError('required')">
-            Email required
+            {{ 'errors.emailRequired' | translate }}
           </mat-error>
           <mat-error *ngIf="loginForm.get('email').hasError('email')">
-            Insert valid email
+            {{ 'errors.validEmail' | translate }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Password</mat-label>
+          <mat-label>{{ 'password' | translate }}</mat-label>
           <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" [errorStateMatcher]="matcher">
           <mat-icon matSuffix (click)="togglePassword()">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           <mat-error *ngIf="loginForm.get('password').hasError('required')">
-            Password required
+            {{ 'errors.passwordRequired' | translate }}
           </mat-error>
           <mat-error *ngIf="loginForm.get('password').hasError('minlength')">
-            Password must be at least 4 characters
+            {{ 'errors.passwordMinCharacters' | translate }}
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Submit</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">{{ 'send' | translate }}</button>
       </form>
     </mat-card-content>
   </mat-card>

@@ -1,54 +1,54 @@
 <div class="signup-container">
   <mat-card>
     <mat-card-header class="signup-header">
-      <mat-card-title>Signup</mat-card-title>
+      <mat-card-title>{{ 'navbar.signup' | translate }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="signup()">
         <mat-form-field>
-          <mat-label>Name</mat-label>
+          <mat-label>{{ 'name' | translate }}</mat-label>
           <input matInput formControlName="name" [errorStateMatcher]="matcher">
           <mat-error *ngIf="signupForm.get('name').hasError('required')">
-            Name required
+            {{ 'errors.nameRequired' | translate }}
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Surname</mat-label>
+          <mat-label>{{ 'surname' | translate }}</mat-label>
           <input matInput formControlName="surname" [errorStateMatcher]="matcher">
           <mat-error *ngIf="signupForm.get('surname').hasError('required')">
-            Surname required
+            {{ 'errors.surnameRequired' | translate }}
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Email</mat-label>
+          <mat-label>{{ 'email' | translate }}</mat-label>
           <input matInput formControlName="email" [errorStateMatcher]="matcher">
           <mat-error *ngIf="signupForm.get('email').hasError('required')">
-            Email required
+            {{ 'errors.emailRequired' | translate }}
           </mat-error>
           <mat-error *ngIf="signupForm.get('email').hasError('email')">
-            Insert valid email
+            {{ 'errors.validEmail' | translate }}
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Password</mat-label>
+          <mat-label>{{ 'password' | translate }}</mat-label>
           <input matInput [type]="hidePsw ? 'password' : 'text'" formControlName="password" [errorStateMatcher]="matcher">
           <mat-icon matSuffix (click)="togglePassword('password')">{{hidePsw ? 'visibility_off' : 'visibility'}}</mat-icon>
           <mat-error *ngIf="signupForm.get('password').hasError('required')">
-            Password required
+            {{ 'errors.passwordRequired' | translate }}
           </mat-error>
           <mat-error *ngIf="signupForm.get('password').hasError('minlength')">
-            Password must be at least 4 characters
+            {{ 'errors.passwordMinCharacters' | translate }}
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Confirm Password</mat-label>
+          <mat-label>{{ 'confirmPassword' | translate }}</mat-label>
           <input matInput [type]="hideConfPsw ? 'password' : 'text'" formControlName="confirmPassword" [errorStateMatcher]="matcher">
           <mat-icon matSuffix (click)="togglePassword('confirmPassword')">{{hideConfPsw ? 'visibility_off' : 'visibility'}}</mat-icon>
           <mat-error *ngIf="signupForm.get('confirmPassword').hasError('required') || signupForm.hasError('notSame')">
-            Passwords do not match
+            {{ 'errors.passwordsMatch' | translate }}
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Signup</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">{{ 'navbar.signup' | translate }}</button>
       </form>
     </mat-card-content>
   </mat-card>
