@@ -11,12 +11,14 @@ passport.use(new LocalStrategy({
 
     if (!user) {
       return done(null, false, {
-        message: 'User not found!'
+        error_code: '101',
+        message: 'User not found!',
       });
     }
 
     if (!user.validPassword(password)) {
       return done(null, false, {
+        error_code: '102',
         message: 'Password is wrong'
       })
     }

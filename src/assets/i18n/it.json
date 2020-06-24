@@ -29,8 +29,19 @@
     "passwordMinCharacters": "La password deve essere di almeno 4 caratteri",
     "passwordsMatch": "Le password non coincidono"
   },
+  "error_code" : {
+    "101": "Utente non trovato",
+    "102": "La password è errata",
+    "103": "Devi inserire un'email",
+    "104": "Devi inserire una password",
+    "105": "Non autorizzato",
+    "106": "Impossibile aggiornare le informazioni utente"
+  },
   "translate": {
     "italian": "Traduci sito in italiano",
     "english": "Traduci sito in inglese"
+  },
+  "messages": {
+    "userInfo": "Informazioni utente aggiornate"
   }
 }

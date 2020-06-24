@@ -5,8 +5,11 @@ import { Subscription } from 'rxjs';
 
 import { AuthenticationService } from '../../_services/authentication.service';
 import { NgFlashMessageService } from 'ng-flash-messages';
+import { TranslateService } from '@ngx-translate/core';
+
 import { UserDetail } from '../../_interfaces/UserDetail';
 import { TokenPayload } from '../../_interfaces/TokenPayload';
+import { CustomErrorMessage } from '../../_helpers/custom-error-message';
 
 @Component({
   selector: 'app-profile',
@@ -17,12 +20,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   userDetail: UserDetail;
-  // userInfoForm;
   userData: TokenPayload;
   matcher;
-
-  constructor(private authService: AuthenticationService, private flashMessage: NgFlashMessageService) {
-  }
+  errorMessage = new CustomErrorMessage(this.translate);
 
   userInfoForm = new FormGroup({
     name: new FormControl(''),
@@ -32,9 +32,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     city: new FormControl(''),
     // zipCode: new FormControl('')
   });
+
+  constructor(private authService: AuthenticationService,
+              private flashMessage: NgFlashMessageService,
+              private translate: TranslateService) {
+  }
+
   ngOnInit() {
-
-
     this.matcher = new CustomStateMatcher();
     this.subscription = this.authService.profile().subscribe(user => {
       this.userDetail = user;
@@ -46,8 +50,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }, err => {
       console.log(err);
     });
-
-
   }
 
   userInfo() {
@@ -60,14 +62,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     };
     this.subscription = this.authService.uploadUserInfo(this.userData).subscribe(res => {
       this.flashMessage.showFlashMessage({
-        messages: ['Updated user info!'],
+        messages: [this.translate.instant('messages.userInfo')],
         type: 'success',
         dismissible: true,
         timeout: 2000,
       });
     }, err => {
+      // console.log('error profile: ', err.error_code);
       this.flashMessage.showFlashMessage({
-        messages: [err.message],
+        messages: [this.errorMessage.selectErrorMessage(err.error_code)],
         type: 'danger',
         dismissible: true,
         timeout: 2000,

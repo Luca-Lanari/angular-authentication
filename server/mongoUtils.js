@@ -2,7 +2,12 @@ const mongoose = require('mongoose');
 const mongodb = `mongodb://${process.env.DB_HOST}:27017`;
 const dbName = 'authentication_db';
 
-mongoose.connect(`${mongodb}/${dbName}`, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
+mongoose.connect(`${mongodb}/${dbName}`, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+});
 
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

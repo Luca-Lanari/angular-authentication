@@ -5,7 +5,8 @@ module.exports.profileRead = (req, res) => {
   // If no user ID exists in the JWT return a 401
   if (!req.payload._id) {
     res.status(401).json({
-      'message': 'UnauthorizedError: private profile'
+      'error_code': '105',
+      'message': 'UnauthorizedError'
     });
   } else {
     // Otherwise continue
@@ -20,7 +21,8 @@ module.exports.profileRead = (req, res) => {
 module.exports.updateUserInfo = (req, res) => {
   if (!req.payload._id) {
     res.status(401).json({
-      'message': 'UnauthorizedError: to get updateUserInfo'
+      'error_code': '105',
+      'message': 'UnauthorizedError'
     });
   } else {
     User.findByIdAndUpdate(req.payload._id, {
@@ -35,6 +37,7 @@ module.exports.updateUserInfo = (req, res) => {
     }).exec((err, user) => {
       if (err) {
         res.status(401).json({
+          'error_code': '106',
           'message': 'Unable to update user info'
         });
       }

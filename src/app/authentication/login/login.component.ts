@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CustomStateMatcher } from '../../_helpers/error-matcher';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-
-import { TokenPayload } from '../../_interfaces/TokenPayload';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { NgFlashMessageService } from 'ng-flash-messages';
+import { TranslateService } from '@ngx-translate/core';
+
+import { CustomStateMatcher } from '../../_helpers/error-matcher';
+import { TokenPayload } from '../../_interfaces/TokenPayload';
+import { CustomErrorMessage } from '../../_helpers/custom-error-message';
 
 @Component({
   selector: 'app-login',
@@ -22,10 +24,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     password: new FormControl('', [Validators.required, Validators.minLength(4)])
   });
   matcher = new CustomStateMatcher();
+  errorMessage = new CustomErrorMessage(this.translate);
 
   constructor(private authService: AuthenticationService,
               private router: Router,
-              private flashMessage: NgFlashMessageService) {
+              private flashMessage: NgFlashMessageService,
+              private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -41,7 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/profile');
     }, err => {
       this.flashMessage.showFlashMessage({
-        messages: [err.error.message],
+        messages: [this.errorMessage.selectErrorMessage(err.error.error_code)],
         type: 'danger',
         dismissible: true,
         timeout: 2000,

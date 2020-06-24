@@ -9,13 +9,20 @@ require('../../config/passport');
 router.post('/register', (req, res) => {
   try {
     if (!req.body.email)
-      return res.status(401).send({error: 'You must enter an email address.'});
+      return res.status(401).send({
+        error_code: '103',
+        error: 'You must enter an email address.',
+
+      });
 
     if (!req.body.password)
-      return res.status(401).send({error: 'You must enter a password.'});
+      return res.status(401).send({
+        error_code: '104',
+        error: 'You must enter a password.'
+      });
 
     AuthController.register(req, res);
-    // res.status(201).json({message: 'ok'});
+
   } catch (err) {
     console.log(err);
     res.status(401).send({error: err});
@@ -25,10 +32,16 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
   try {
     if (!req.body.email)
-      return res.status(401).send({error: 'You must enter an email address.'});
+      return res.status(401).send({
+        error_code: '103',
+        error: 'You must enter an email address.'
+      });
 
     if (!req.body.password)
-      return res.status(401).send({error: 'You must enter a password.'});
+      return res.status(401).send({
+        error_code: '104',
+        error: 'You must enter a password.'
+      });
 
     AuthController.login(req, res);
   } catch (err) {

@@ -1,13 +1,16 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomStateMatcher } from '../../_helpers/error-matcher';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgFlashMessageService } from 'ng-flash-messages';
+import {TranslateService} from '@ngx-translate/core';
 
 import { TokenPayload } from '../../_interfaces/TokenPayload';
 import { CustomValidators } from '../../_helpers/custom-validators';
+import {CustomErrorMessage} from '../../_helpers/custom-error-message';
+
 
 @Component({
   selector: 'app-signup',
@@ -20,6 +23,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   hidePsw = true;
   hideConfPsw = true;
   checkPassword = new CustomValidators();
+  errorMessage = new CustomErrorMessage(this.translate);
   signupForm = new FormGroup({
     name: new FormControl('', Validators.required),
     surname: new FormControl('', Validators.required),
@@ -32,7 +36,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthenticationService,
               private router: Router,
-              private flashMessage: NgFlashMessageService) {
+              private flashMessage: NgFlashMessageService,
+              private translate: TranslateService) {
   }
 
   // checkPasswords(group: FormGroup) {
@@ -61,7 +66,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/profile');
       }, error => {
         this.flashMessage.showFlashMessage({
-          messages: [error.error.error],
+          messages: [this.errorMessage.selectErrorMessage(error.error.error_code)],
           type: 'danger',
           dismissible: true,
           timeout: 2000,
@@ -76,7 +81,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.hideConfPsw = !this.hideConfPsw;
     }
   }
-
 
   ngOnDestroy() {
     if (this.subscription) {
