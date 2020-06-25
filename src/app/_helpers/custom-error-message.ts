@@ -7,6 +7,7 @@ export class CustomErrorMessage {
   }
 
   selectErrorMessage(code: string): string {
+    console.log('code: ', code);
     switch (code) {
       case '101':
         this.errorMessage = this.translate.instant('error_code.101');
@@ -25,6 +26,9 @@ export class CustomErrorMessage {
         break;
       case '106':
         this.errorMessage = this.translate.instant('error_code.106');
+        break;
+      case '107':
+        this.errorMessage = this.translate.instant('error_code.107');
         break;
       default:
         this.errorMessage = '';

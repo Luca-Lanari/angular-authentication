@@ -4,9 +4,8 @@ import { CustomStateMatcher } from '../../_helpers/error-matcher';
 import { Subscription } from 'rxjs';
 
 import { AuthenticationService } from '../../_services/authentication.service';
-import { NgFlashMessageService } from 'ng-flash-messages';
 import { TranslateService } from '@ngx-translate/core';
-
+import { Toaster } from 'ngx-toast-notifications';
 import { UserDetail } from '../../_interfaces/UserDetail';
 import { TokenPayload } from '../../_interfaces/TokenPayload';
 import { CustomErrorMessage } from '../../_helpers/custom-error-message';
@@ -34,8 +33,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   });
 
   constructor(private authService: AuthenticationService,
-              private flashMessage: NgFlashMessageService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private toaster: Toaster) {
   }
 
   ngOnInit() {
@@ -61,19 +60,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       city: this.userInfoForm.value.city
     };
     this.subscription = this.authService.uploadUserInfo(this.userData).subscribe(res => {
-      this.flashMessage.showFlashMessage({
-        messages: [this.translate.instant('messages.userInfo')],
-        type: 'success',
-        dismissible: true,
-        timeout: 2000,
+      this.toaster.open({
+        type: 'danger',
+        text: this.errorMessage.selectErrorMessage(this.translate.instant('messages.userInfo'))
       });
     }, err => {
-      // console.log('error profile: ', err.error_code);
-      this.flashMessage.showFlashMessage({
-        messages: [this.errorMessage.selectErrorMessage(err.error_code)],
+      this.toaster.open({
         type: 'danger',
-        dismissible: true,
-        timeout: 2000,
+        text: this.errorMessage.selectErrorMessage(err.error_code)
       });
     });
   }

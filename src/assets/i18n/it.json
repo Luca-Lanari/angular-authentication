@@ -13,6 +13,7 @@
   "furtherInfo": "Ulteriori informazioni",
   "address": "Indirizzo",
   "city": "Città",
+  "copyright": "Copyright 2020",
   "navbar": {
     "login": "Login",
     "signup": "Registrati",
@@ -35,7 +36,8 @@
     "103": "Devi inserire un'email",
     "104": "Devi inserire una password",
     "105": "Non autorizzato",
-    "106": "Impossibile aggiornare le informazioni utente"
+    "106": "Impossibile aggiornare le informazioni utente",
+    "107": "L'email è già in uso"
   },
   "translate": {
     "italian": "Traduci sito in italiano",

@@ -9,19 +9,21 @@ import { AppMaterialModule } from './_app-material/app-material.module';
 import { SharedModule } from './shared/shared.module';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import { CoreModule } from './core/core.module';
-import { NgFlashMessagesModule } from 'ng-flash-messages';
-import { LoaderComponent } from './shared/loader/loader.component';
+import { ToastNotificationsModule } from 'ngx-toast-notifications';
 import { LoaderService } from './_services/loader.service';
 import { LoaderInterceptor } from './_interceptors/loader.interceptor';
+import { AuthenticationInterceptor } from './_interceptors/authentication.interceptor';
 
+import { LoaderComponent } from './shared/loader/loader.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
-import {AuthenticationInterceptor} from './_interceptors/authentication.interceptor';
+import { FooterComponent } from './core/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    LoaderComponent
+    LoaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,10 @@ import {AuthenticationInterceptor} from './_interceptors/authentication.intercep
     AppMaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NgFlashMessagesModule
+    ToastNotificationsModule.forRoot({
+      duration: 3000,
+      position: 'bottom-right'
+    })
   ],
   providers: [LoaderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },

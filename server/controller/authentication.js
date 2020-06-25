@@ -8,7 +8,9 @@ module.exports.register = (req, res) => {
   User.findOne({email: req.body.email})
     .then(result => {
       if (result) {
-        return res.status(422).send({error: 'Email address is already in use.'});
+        return res.status(422).send({
+          error_code: '107'
+        });
       } else {
         let user = new User();
         user.name = req.body.name;

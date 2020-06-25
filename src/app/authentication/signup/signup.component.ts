@@ -4,12 +4,12 @@ import { CustomStateMatcher } from '../../_helpers/error-matcher';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { NgFlashMessageService } from 'ng-flash-messages';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Toaster } from 'ngx-toast-notifications';
 
 import { TokenPayload } from '../../_interfaces/TokenPayload';
 import { CustomValidators } from '../../_helpers/custom-validators';
-import {CustomErrorMessage} from '../../_helpers/custom-error-message';
+import { CustomErrorMessage } from '../../_helpers/custom-error-message';
 
 
 @Component({
@@ -36,8 +36,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthenticationService,
               private router: Router,
-              private flashMessage: NgFlashMessageService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private toaster: Toaster) {
   }
 
   // checkPasswords(group: FormGroup) {
@@ -65,11 +65,10 @@ export class SignupComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.router.navigateByUrl('/profile');
       }, error => {
-        this.flashMessage.showFlashMessage({
-          messages: [this.errorMessage.selectErrorMessage(error.error.error_code)],
+        console.log(error.error.error_code);
+        this.toaster.open({
           type: 'danger',
-          dismissible: true,
-          timeout: 2000,
+          text: this.errorMessage.selectErrorMessage(error.error.error_code)
         });
       });
   }

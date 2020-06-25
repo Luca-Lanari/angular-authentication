@@ -3,8 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { NgFlashMessageService } from 'ng-flash-messages';
 import { TranslateService } from '@ngx-translate/core';
+import { Toaster } from 'ngx-toast-notifications';
 
 import { CustomStateMatcher } from '../../_helpers/error-matcher';
 import { TokenPayload } from '../../_interfaces/TokenPayload';
@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthenticationService,
               private router: Router,
-              private flashMessage: NgFlashMessageService,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private toaster: Toaster) {
   }
 
   ngOnInit() {
@@ -44,11 +44,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscription = this.authService.login(this.signin).subscribe(res => {
       this.router.navigateByUrl('/profile');
     }, err => {
-      this.flashMessage.showFlashMessage({
-        messages: [this.errorMessage.selectErrorMessage(err.error.error_code)],
+      this.toaster.open({
         type: 'danger',
-        dismissible: true,
-        timeout: 2000,
+        text: this.errorMessage.selectErrorMessage(err.error.error_code)
       });
     });
   }

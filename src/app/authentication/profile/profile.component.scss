@@ -1,10 +1,9 @@
 .user-info {
-  height: 100%;
-  width: 100%;
+  height: auto;
   display: flex;
-  position: fixed;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
 
   mat-card {
     width: 400px;
@@ -25,5 +24,10 @@
       }
     }
   }
+}
 
+@media only screen and (max-width: 600px) {
+  .user-info {
+    margin-top: 0;
+  }
 }

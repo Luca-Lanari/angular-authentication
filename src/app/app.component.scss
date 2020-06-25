@@ -1,0 +1,14 @@
+.flash-message {
+  float: right;
+  position: fixed;
+  right: 0;
+  bottom: 40px;
+  min-width: 30%;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 600px)  {
+  .flash-message {
+    top: 60px;
+  }
+}

@@ -9,10 +9,11 @@
   "confirmPassword": "Confirm Password",
   "pageNotFound": "404 Page Not Found!",
   "send": "send",
+  "update": "Update",
   "furtherInfo": "Further Info",
   "address": "Address",
   "city": "City",
-  "update": "Update",
+  "copyright": "Copyright 2020",
   "navbar": {
     "login": "Login",
     "signup": "Signup",
@@ -27,7 +28,7 @@
     "validEmail": "Insert valid email",
     "passwordRequired": "Password required",
     "passwordMinCharacters": "Password must be at least 4 characters",
-    "passwordsMatch": "Passwords do not match",
+    "passwordsMatch": "Passwords do not match"
   },
   "error_code" : {
     "101": "User not found",
@@ -35,7 +36,8 @@
     "103": "You must enter an email address",
     "104": "You must enter a password",
     "105": "UnauthorizedError",
-    "106": "Unable to update user info"
+    "106": "Unable to update user info",
+    "107": "Email address is already in use"
   },
   "translate": {
     "italian": "Translate site into italian",
