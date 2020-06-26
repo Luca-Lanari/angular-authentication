@@ -73,6 +73,9 @@ mat-toolbar-row {
 }
 
 @media only screen and (max-width: 600px) {
+  .sidenav-container-mobile {
+    margin-top: 0 !important;
+  }
   .navbar-title, .navbar-menu {
     display: none;
   }

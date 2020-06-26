@@ -12,7 +12,7 @@
           <button class="user-logged" mat-button [matMenuTriggerFor]="menuLogged">
             {{ 'hello' | translate }} {{authService.getUserDetail()?.name}}</button>
           <mat-menu #menuLogged="matMenu">
-            <button mat-menu-item><a class="color-black" routerLink="profile">{{ 'navbar.profile' | translate }}</a>
+            <button mat-menu-item routerLink="profile"><a class="color-black">{{ 'navbar.profile' | translate }}</a>
             </button>
             <button class="color-black" mat-menu-item
                     (click)="authService.logout()">{{ 'navbar.logout' | translate }}</button>

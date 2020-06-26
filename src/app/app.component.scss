@@ -1,14 +1,29 @@
-.flash-message {
-  float: right;
-  position: fixed;
-  right: 0;
-  bottom: 40px;
-  min-width: 30%;
-  margin-right: 10px;
-}
+@import "src/scss/variables";
 
-@media only screen and (max-width: 600px)  {
-  .flash-message {
-    top: 60px;
+.app-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .header{
+    flex-shrink: 0;
+    flex-grow: 0;
+    background: $light-grey-5;
+  }
+  .content{
+    flex-shrink: 1;
+    flex-grow: 1;
+    position: relative;
+    overflow-y: auto;
+  }
+  .footer{
+    bottom: 0;
+    left: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+    background: $light-grey-5;
   }
 }
+
+
+
