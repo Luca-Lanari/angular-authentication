@@ -1,10 +1,18 @@
-const express = require('express');
+/*const express = require('express');
 const router = express.Router();
 
-const AuthController = require('../../controller/authentication');
+const AuthenticationController = require('../../controller/authentication');
 const CtrlProfile = require('../../controller/profile');
 const auth = require('../../config/jwt');
 require('../../config/passport');
+*/
+
+import Express from 'express';
+import auth  from '../../config/jwt';
+import AuthenticationController from '../../controller/authentication';
+import { CtrlProfile } from '../../controller/profile';
+
+const router = new Express.Router();
 
 router.post('/register', (req, res) => {
   try {
@@ -21,7 +29,7 @@ router.post('/register', (req, res) => {
         error: 'You must enter a password.'
       });
 
-    AuthController.register(req, res);
+    AuthenticationController.register(req, res);
 
   } catch (err) {
     console.log(err);
@@ -29,7 +37,8 @@ router.post('/register', (req, res) => {
   }
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
+  console.log(req.body);
   try {
     if (!req.body.email)
       return res.status(401).send({
@@ -42,9 +51,10 @@ router.post('/login', (req, res) => {
         error_code: '104',
         error: 'You must enter a password.'
       });
-
-    AuthController.login(req, res);
+    
+    AuthenticationController.login(req, res, next);
   } catch (err) {
+    console.log('catch', err);
     res.status(401).send({error: err});
   }
 });
@@ -65,7 +75,8 @@ router.post('/update-user-info', auth, (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
+// module.exports = router;
 
 
 
