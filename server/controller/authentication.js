@@ -2,10 +2,8 @@
 
 import passport from 'passport';
 import User from '../models/users';
-
 class AuthenticationController {
-  static register(req, res) {
-    console.log(req.body);
+  static async register(req, res) {
     User.findOne({email: req.body.email})
     .then(result => {
       if (result) {
@@ -14,7 +12,6 @@ class AuthenticationController {
         });
       } else {
         let user = new User();
-        console.log('USERRRRRRRR -----> ', user);
         user.name = req.body.name;
         user.surname = req.body.surname;
         user.email = req.body.email;
@@ -22,7 +19,6 @@ class AuthenticationController {
   
         user.save((err, user) => {
           if (err) {
-            console.log(err);
             res.status(401).send({error: err});
           }
           let token;
@@ -38,7 +34,6 @@ class AuthenticationController {
         });
       }
     }).catch(err => {
-      console.log(err);
       res.status(401).send({error: err});
     });
   };

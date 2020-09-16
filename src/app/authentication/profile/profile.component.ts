@@ -61,8 +61,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     };
     this.subscription = this.authService.uploadUserInfo(this.userData).subscribe(res => {
       this.toaster.open({
-        type: 'danger',
-        text: this.errorMessage.selectErrorMessage(this.translate.instant('messages.userInfo'))
+        type: 'success',
+        text: this.translate.instant('messages.userInfo')
       });
     }, err => {
       this.toaster.open({

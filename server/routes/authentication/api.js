@@ -10,7 +10,7 @@ require('../../config/passport');
 import Express from 'express';
 import auth  from '../../config/jwt';
 import AuthenticationController from '../../controller/authentication';
-import { CtrlProfile } from '../../controller/profile';
+import ProfileController from '../../controller/profile';
 
 const router = new Express.Router();
 
@@ -32,13 +32,11 @@ router.post('/register', (req, res) => {
     AuthenticationController.register(req, res);
 
   } catch (err) {
-    console.log(err);
     res.status(401).send({error: err});
   }
 });
 
 router.post('/login', (req, res, next) => {
-  console.log(req.body);
   try {
     if (!req.body.email)
       return res.status(401).send({
@@ -54,14 +52,13 @@ router.post('/login', (req, res, next) => {
     
     AuthenticationController.login(req, res, next);
   } catch (err) {
-    console.log('catch', err);
     res.status(401).send({error: err});
   }
 });
 
 router.get('/profile', auth, (req, res) => {
   try {
-    CtrlProfile.profileRead(req, res);
+    ProfileController.profileRead(req, res);
   } catch (err) {
     res.status(401).send({error: err});
   }
@@ -69,7 +66,7 @@ router.get('/profile', auth, (req, res) => {
 
 router.post('/update-user-info', auth, (req, res) => {
   try {
-    CtrlProfile.updateUserInfo(req, res);
+    ProfileController.updateUserInfo(req, res);
   } catch (err) {
     res.status(401).send({error: err});
   }
